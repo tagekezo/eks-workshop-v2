@@ -129,6 +129,8 @@ jobs:
       if: always()
       working-directory: test/terraform
       run: |
+        aws eks delete-fargate-profile --fargate-profile-name checkout-profile --cluster-name ${CLUSTER_ID}
+
         terraform destroy -target=module.core.module.cluster.module.eks_blueprints_kubernetes_addons --auto-approve
         terraform destroy -target=module.core.module.cluster.module.descheduler --auto-approve
 
