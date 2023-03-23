@@ -72,10 +72,10 @@ $ kubectl exec --stdin deployment/assets $POD_NAME \
   -n assets -- bash -c 'touch /usr/share/nginx/html/assets/newproduct.png'
 ```
 
-Now confirm the new product image `newproduct.png` isn't present on the file system of the second Pod:
+Now confirm the new product image `newproduct.png` isn't present on the file system of the second Pod. Note that the new pod created has index 0, the old pod becomes index 1:
 
 ```bash
-$ POD_NAME=$(kubectl -n assets get pods -o jsonpath='{.items[1].metadata.name}')
+$ POD_NAME=$(kubectl -n assets get pods -o jsonpath='{.items[0].metadata.name}')
 $ kubectl exec --stdin $POD_NAME \
   -n assets -- bash -c 'ls /usr/share/nginx/html/assets'
 ```
